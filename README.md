@@ -14,6 +14,8 @@ let greetings = `Hello, $name $surname!`
 package main
 
 import (
+    "fmt"
+
     "github.com/xjslang/xjs/lexer"
     "github.com/xjslang/xjs/parser"
     intpparser "github.com/xjslang/intp-parser"
@@ -29,7 +31,7 @@ func main() {
     // Register the interpolation middleware and parse the program
     p.UseExpressionHandler(intpparser.ParseInterpolationExpression)
     ast := p.ParseProgram()
-    output := ast.String()
+    fmt.Println(ast.String())
     // → "let message = `Hello, ${name}!`"
 }
 ```

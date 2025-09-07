@@ -19,7 +19,7 @@ func TestStringInterpolation(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			l := lexer.New(tt.input)
 			p := parser.New(l)
-			p.UseExpressionHandler(ParseTemplateExpression)
+			p.UseExpressionParser(ParseTemplateExpression)
 			ast := p.ParseProgram()
 			if ast.String() != tt.expected {
 				t.Errorf("Parse(%q) got %q, want %q", tt.input, ast.String(), tt.expected)

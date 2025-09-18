@@ -17,9 +17,8 @@ func TestStringInterpolation(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			l := lexer.New(tt.input)
-			p := parser.New(l)
-			p.UseExpressionParser(ParseTemplateExpression)
+			lb := lexer.NewBuilder()
+			p := parser.NewBuilder(lb).Install(Plugin).Build(tt.input)
 			ast, err := p.ParseProgram()
 			if err != nil {
 				t.Fatalf("ParseProgram() error: %v", err)

@@ -8,10 +8,12 @@ import (
 	"github.com/xjslang/xjs/token"
 )
 
-func ParseTemplateExpression(p *parser.Parser, next func() ast.Expression) ast.Expression {
-	if p.CurrentToken.Type == token.RAW_STRING {
-		r := regexp.MustCompile(`\$(\w+)`)
-		p.CurrentToken.Literal = r.ReplaceAllString(p.CurrentToken.Literal, "${$1}")
-	}
-	return next()
+func Plugin(pb *parser.Builder) {
+	pb.UseExpressionInterceptor(func(p *parser.Parser, next func() ast.Expression) ast.Expression {
+		if p.CurrentToken.Type == token.RAW_STRING {
+			r := regexp.MustCompile(`\$(\w+)`)
+			p.CurrentToken.Literal = r.ReplaceAllString(p.CurrentToken.Literal, "${$1}")
+		}
+		return next()
+	})
 }

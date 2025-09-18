@@ -1,4 +1,4 @@
-module github.com/xjslang/intp-parser
+module github.com/xjslang/interp-parser
 
 go 1.25.0
 
